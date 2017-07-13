@@ -37,7 +37,7 @@ var ContactForm = React.createClass({
         React.createElement('form', {},
           React.createElement('input', {
               type: 'text',
-              placeholder: 'Name (requried)',
+              placeholder: 'Name (required)',
               value: this.props.contact.name
           }),
           React.createElement('input', {

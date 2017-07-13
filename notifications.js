@@ -1,71 +1,78 @@
 var notifications = [
-  {key: 1, title:"Notification 1", body:"This is a draft Notification, let's hope this thing works!", date: "July 5, 2017", views: "1000"},
-  {key: 2, title:"Notification 2", body:"Another example notification", date: " December 2, 1999", views: "5559"}
+  {key: 1, title: "Not ification 1", body: "This is a draft Notification, let's hope this thing works!", date: "July 5, 2017", views: "1000"},
+  {key: 2, title: "Notification 2", body: "Another example notification", date: "December 2, 1999", views: "5559"}
 ]
 
 var newNotification =
   {title: "", body: "", date: "", views: ""}
 
-var NotificationItem = React.createClass ({
+var NotificationItem = React.createClass ( {
   propTypes: {
-    title: React.propTypes.string.isRequired,
-    body: React.propTypes.string.isRequired,
-    date: React.propTypes.string
-    views: React.propTypes.number
+    title: React.PropTypes.string.isRequired,
+    body: React.PropTypes.string.isRequired,
+    date: React.PropTypes.string,
+    views: React.PropTypes.number
   },
 
-  render function (){
-    React.createElement('ul', {}, "Notification Table"),
-      React.createElement('ul', {},
-        React.createElement('h3', {}, this.props.title),
-        React.createElement('h3', {}, this.props.body),
-        React.createElement('h3', {}, this.props.date),
-        React.createElement('h3', {}, this.props.views),
-      )
+  render: function (){
+    return (
+      React.createElement('ul', {}, "Notification Table"),
+        React.createElement('ul', {},
+          React.createElement('h3', {}, this.props.title),
+          React.createElement('h3', {}, this.props.body),
+          React.createElement('h3', {}, this.props.date),
+          React.createElement('h3', {}, this.props.views)
+        )
+    )
   },
 })
 
-var NotificationForm = react.createClass ({
+var NotificationForm = React.createClass ({
   propTypes: {
-    notification: React.propTypes.object.isRequired
+    notification: React.PropTypes.object.isRequired
   },
 
-  render function() {
+  render: function() {
     return (
       React.createElement('ul', {}, "New Notification Form"),
         React.createElement('form', {},
-          React.createElement('input'{
+          React.createElement('input', {
             type: 'text',
             placeholder: 'Title of Notification',
             value: this.props.notification.title
           }),
-          React.createElement('input' {
-            type: 'text',
+          React.createElement('input', {
+            type: 'textarea',
             placeholder: 'Notification Content',
             value: this.props.notification.body
           }),
-          React.createElement('input' {
-            type: 'text',
+          React.createElement('input', {
+            type: 'textarea',
             placeholder: 'Date (will be automated)',
             value: this.props.notification.date
           }),
-          React.createElement('input' {
+          React.createElement('input', {
             type: 'number',
             placeholder: 'Views (will be automated)',
             value: this.props.notification.views
           }),
         React.createElement('button', {type: 'Submit'}, "Send")
-        ),
+        )
       )
-  }
+  },
 })
 
 var notificationItemElements = notifications
+  .map(function(notification) {return React.createElement(NotificationItem, notification)})
+
+
+
+var rootElement =
   React.createElement('div', {},
     React.createElement('h1', {}, 'Notification Form'),
-    React.createElement(NotificationForm, {notification:newNotification}),
-    React.createElement('h1', {}, 'Sent Notifications'),
-    React.createElement('h1', {}, notificationItemElements)
+    React.createElement(NotificationForm, {notification: newNotification}),
+    React.createElement('ul', {}, 'All Notifications'),
+    React.createElement('ul', {}, notificationItemElements)
 )
 
 ReactDOM.render(rootElement, document.getElementById('react-app'))
