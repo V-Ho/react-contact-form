@@ -30,39 +30,54 @@ var NotificationItem = React.createClass ( {
 var NotificationForm = React.createClass ({
   propTypes: {
     value: React.PropTypes.object.isRequired,
-    onchange: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func.isRequired,
   },
-  
+
 
   render: function() {
+    var oldNotification = this.props.value;
+    var onChange = this.props.onChange;
+
     return (
       React.createElement('ul', {}, "New Notification Form"),
         React.createElement('form', {className: 'NotificationForm'},
           React.createElement('input', {
             type: 'text',
             placeholder: 'Title of Notification',
-            value: this.props.notification.title
+            value: this.props.notification.title,
+            onChange: function(e) {
+              onChange(Object.assign({}, oldNotification, {name: e.target.value}));
+            },
           }),
           React.createElement('input', {
             type: 'textarea',
             placeholder: 'Notification Content',
-            value: this.props.notification.body
+            value: this.props.notification.body,
+            onChange: function(e) {
+              onChange(Object.assign{}, oldNotification, {name: e.target.value})
+            },
           }),
           React.createElement('input', {
             type: 'textarea',
             placeholder: 'Date (will be automated)',
-            value: this.props.notification.date
+            value: this.props.notification.date,
+            onChange: function(e) {
+              onChange(Object.assign({}, oldNotification, {name: e.target.value}))
+            },
           }),
           React.createElement('input', {
             type: 'number',
             placeholder: 'Views (will be automated)',
-            value: this.props.notification.views
+            value: this.props.notification.views,
+            onChange: function(e) {
+              onChange(Object.assign({}, oldNotification, {name: e.target.value}))
+            },
           }),
         React.createElement('button', {type: 'Submit'}, "Send")
         )
-      )
+      );
   },
-})
+});
 
 var notificationItemElements = notifications
   .map(function(notification) {return React.createElement(NotificationItem, notification)})
